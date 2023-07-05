@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import { connectDB } from './resume/config/db';
+/* import { connectDB } from './resume/config/db'; */
 import cors from 'cors';
 
 // Routes
@@ -7,11 +7,11 @@ import cors from 'cors';
 //PASSPORT
 import passport from 'passport';
 import session from 'express-session';
-import './resume/config/passportStrategies';
+/* import './resume/config/passportStrategies'; */
 
 const PORT = process.env.PORT || 3000;
 
-connectDB();
+/* connectDB(); */
 
 const app = express();
 
