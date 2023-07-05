@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { UserDocument } from "../types/IVolunteer";
 
 
 
@@ -16,4 +17,4 @@ const VolunteerSchema = new Schema({
     authorized: { type: Boolean},
 },{timestamps:true})
 
-export default model("Volunteer", VolunteerSchema)
+export default model <UserDocument>("Volunteer", VolunteerSchema)
