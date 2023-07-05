@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 /* import { connectDB } from './resume/config/db'; */
 import cors from 'cors';
+import {badRequestHandler, unauthorizedHandler, forbiddenHandler, notFoundHandler, genericErrorHandler} from './middleware/errorHandling'
 
 // Routes
 
@@ -26,6 +27,15 @@ app.use(cors())
     )
     .use(passport.initialize())
     .use(passport.session());
+
+
+//ERROR HANDLERS
+
+    app.use(badRequestHandler)
+    app.use(unauthorizedHandler)
+    app.use(forbiddenHandler)
+    app.use(notFoundHandler)
+    app.use(genericErrorHandler)
 
 app.listen(PORT, () => {
     // eslint-disable-next-line no-undef, no-console
