@@ -7,7 +7,7 @@ import {badRequestHandler, unauthorizedHandler, forbiddenHandler, notFoundHandle
 
 //PASSPORT
 import passport from 'passport';
-import session from 'express-session';
+/* import session from 'express-session'; */
 /* import './resume/config/passportStrategies'; */
 
 const PORT = process.env.PORT || 3000;
@@ -18,13 +18,13 @@ const app = express();
 
 app.use(cors())
     .use(json())
-    .use(
+  /*   .use(
         session({
             // secret: process.env.SESSION_SECRET as string,
             resave: false,
             saveUninitialized: false,
         })
-    )
+    ) */
     .use(passport.initialize())
     .use(passport.session());
 

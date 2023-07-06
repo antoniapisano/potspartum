@@ -2,11 +2,12 @@
   "name": "mvp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.ts",
+  
   "scripts": {
     "test": "vitest run",
-    "start": "nodemon server.ts"
+    "start": "nodemon server.ts",
+    "dev": "nodemon -r dotenv/config index.ts"
   },
   "repository": {
     "type": "git",
