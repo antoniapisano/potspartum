@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const {Schema, model} = mongoose;
 
-const UserSchema = new Schema({
+const VolunteerSchema = new Schema({
     name:{ type: String, require: true},
     phone:{ type: String, require: true},
     address:{ type: String, require: true},
@@ -16,4 +16,4 @@ const UserSchema = new Schema({
     authorized: { type: Boolean},
 },{timestamps:true})
 
-export default model("User", UserSchema)
+export default model("Volunteer", VolunteerSchema)

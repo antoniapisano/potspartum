@@ -1,6 +1,6 @@
 import { Document} from "mongoose";
 
-export interface IUser {
+export interface IVolunteer {
     name: string;
     phone:number;
     address:string;
@@ -13,4 +13,4 @@ export interface IUser {
    
   }
   
-  export interface UserDocument extends IUser, Document {}
+  export interface UserDocument extends IVolunteer, Document {}
