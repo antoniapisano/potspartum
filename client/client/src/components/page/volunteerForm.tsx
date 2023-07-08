@@ -1,91 +1,79 @@
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { volunteerSchema } from '../page/volunteerSchema';
 
-type VolunteerFormInputs = {
-    name: string;
-    phone: string;
-    address: string;
-    email: string;
-    community: string;
-    image: string;
-    description: string;
-    restrictions: [];
-    authorized: boolean;
-}
 
-const schema = z.object({
-    name: z.string().name(),
-    phone: z.number().phone(),
-    address: z.string().address(),
-    email: z.string().email(),
-    community: z.string().community(),
-    image: z.string().image(),
-    description: z.string().description,
-    restrictions: z.[].restrictions(),
-    authorized: z.boolean().authorised,
 
-});
+export default function volunteerForm() {
 
-export const VolunteerForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<VolunteerFormInputs> ({
-        resolver: async (data) => {
-            try {
-                await schema.validate(data);
-                return { values: data, errors: {} };
-            } catch (e) {
-                if (e instanceof z.ZodError) {
-                    return { values: {}, errors: e.errors};
-                }
-            }
-        }
-    });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid }
+    } = useForm<typeof volunteerSchema>({
+        resolver: zodResolver(volunteerSchema)
+    })
 
-    const onSubmit = data: VolunteerFormInputs) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<typeof volunteerSchema> = (data) => {
+        console.log(data)
     }
 
-const {name, phone, address, email, community, image, description, restrictions, authorised} = errors;
+    console.log(isValid)
 
-return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Name</label>
-        <input type="name" {...register("name")} />
-        {name ? <span>{name.message}</span> : ''}
+    return (
+        <>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+            >
 
-        <label>Phone</label>
-        <input type="phone" {...register("phone")} />
-        {phone ? <span>{phone.message}</span> : ''}
+                <label htmlFor="name"
+                >Name:</label>
+                <input id="name" type="text" {...register('_input.name')}/>
 
-        <label>Address</label>
-        <input type="address" {...register("address")} />
-        {address ? <span>{address.message}</span> : ''}
+                <label htmlFor="phone"
+                >Phone:</label>
+                <input id="phone" type="text" {...register("_input.phone")}/>
 
-        <label>Email</label>
-        <input type="email" {...register("email")} />
-        {email ? <span>{email.message}</span> : ''}
+                <label htmlFor="address"
+                >Address:</label>
+                <input id="address" type="text" {...register("_input.address")}/>
 
-        <label>Community</label>
-        <input type="community" {...register("community")} />
-        {community ? <span>{community.message}</span> : ''}
+                <label htmlFor="email"
+                >Email:</label>
+                <input id="street" type="email" {...register("_input.email")}/>
 
-        <label>Image</label>
-        <input type="image" {...register("image")} />
-        {image? <span>{image.message}</span> : ''}
+                <label htmlFor="community" 
+                >Community:
+                </label>
+                <input id="community" type="text" {...register("_input.community")}/>
 
-        <label>Description</label>
-        <input type="description" {...register("description")} />
-        {description? <span>{description.message}</span> : ''}
 
-        <label>Restrictions</label>
-        <input type="restrictions" {...register("restrictions")} />
-        {restrictions? <span>{restrictions.message}</span> : ''}
+                <label htmlFor="image" 
+                >Image:
+                </label>
+                <input id="image" type="text" {...register("_input.image")}/>
 
-        <label>Authorised</label>
-        <input type="authorised" {...register("authorised")} />
-        {authorised? <span>{authorised.message}</span> : ''}
+                <label htmlFor="description"
+                >Description:
+                </label>
+                <input id="description" type="text" {...register("_input.description")}/>
 
-        <Button type="submit">Submit</Button>
 
-    </form>
+                <label htmlFor="restrictions"
+                >Restrictions:
+                </label>
+                <input type="restrictions" {...register("_input.restrictions")}/>
 
+                <label htmlFor="authorized"
+                >Authorized:
+                </label>
+                <input id="authorized" type="boolean" {...register("_input.authorized")}/>
+
+                <button type="submit">
+                    Submit
+                </button>
+
+            </form>
+        </>
+    )
 }
