@@ -6,7 +6,6 @@
   
   "scripts": {
     "test": "vitest run",
-    "start": "nodemon server.ts",
     "dev": "nodemon -r dotenv/config index.ts"
   },
   "repository": {
