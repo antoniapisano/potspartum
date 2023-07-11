@@ -2,11 +2,12 @@ import express, { json } from 'express';
 /* import { connectDB } from './resume/config/db'; */
 import cors from 'cors';
 import {badRequestHandler, unauthorizedHandler, forbiddenHandler, notFoundHandler, genericErrorHandler} from './middleware/errorHandling'
+import volunteerRoutes from "./routes/volunteerRoutes"
 
 // Routes
 
 //PASSPORT
-import passport from 'passport';
+/* import passport from 'passport'; */
 /* import session from 'express-session'; */
 /* import './resume/config/passportStrategies'; */
 
@@ -25,8 +26,11 @@ app.use(cors())
             saveUninitialized: false,
         })
     ) */
-    .use(passport.initialize())
-    .use(passport.session());
+  /*   .use(passport.initialize())
+    .use(passport.session()); */
+
+//ENDPOINTS
+app.use("/", volunteerRoutes)
 
 
 //ERROR HANDLERS
