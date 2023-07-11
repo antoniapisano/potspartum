@@ -10,6 +10,7 @@ export interface IVolunteer {
     description: string;
     restrictions: []; //Restriction[]
     authorized: boolean;
+    token:string;
    
   }
   
