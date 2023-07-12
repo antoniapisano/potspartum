@@ -1,10 +1,11 @@
 import {NextFunction, Request, Response } from "express"
 import Volunteer from "../models/volunteerModel";
 import bcrypt from "bcrypt"
-import jwt  from "jsonwebtoken";
+/* import jwt  from "jsonwebtoken"; */
 
 export const volunteerRegister = async(req:Request, res:Response, next:NextFunction)=>{
     try {
+      
         const { email } = req.body;
 
         const salt = await bcrypt.genSalt(10);
@@ -22,9 +23,9 @@ export const volunteerRegister = async(req:Request, res:Response, next:NextFunct
         };
     
         const createUser = await Volunteer.create(newUser);
-        const newToken = generateToken(newUser._id);
-        const { token } = await createUser.save(newToken);
-        console.log(token, "this is the token")
+        /* const newToken = generateToken(newUser._id); */
+        /* const { token } = await createUser.save(newToken); */
+       /*  console.log(token, "this is the token") */
     
         res.status(201).send({
             name:createUser.name,
@@ -33,7 +34,7 @@ export const volunteerRegister = async(req:Request, res:Response, next:NextFunct
             email: createUser.email,
             community: createUser.community,
             description: createUser.description,
-            token:createUser.token,
+            /* token:createUser.token, */
         });
 
     } catch (error) {
@@ -41,12 +42,8 @@ export const volunteerRegister = async(req:Request, res:Response, next:NextFunct
     }
     }
 
-    const generateToken = (id:string) => {
-        return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-      };
-        /*  name:volunteer.name,
-            phone:volunteer.phone,
-            address:volunteer.address,
-            email: volunteer.email,
-            community: volunteer.community,
-            description: volunteer.description */
+  /*   const generateToken = (id:string) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return jwt.sign({ id }, process.env.JWT_SECRET!, { expiresIn: "7d" });
+      }; */
+       

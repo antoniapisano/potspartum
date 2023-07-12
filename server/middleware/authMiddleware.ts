@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import  jwt  from "jsonwebtoken";
-import Volunteer from "../models/volunteerModel";
+import { Request, Response, NextFunction, RequestHandler } from "express";
+import {verifyAccessToken}  from "../tools/tools";
 
 
 
-export const protect = async (req:Request, res:Response, next:NextFunction) => {
+
+export const protect:RequestHandler = async (req:Request, res:Response, next:NextFunction) => {
    try {
     let token;
   
@@ -15,8 +15,8 @@ export const protect = async (req:Request, res:Response, next:NextFunction) => {
       try {
         token = req.headers.authorization.split(" ")[1];
   
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = await Volunteer.findById(decoded.id).select("-password");
+        const payload = await verifyAccessToken(token);
+        req.user = { _id: payload._id };
         next();
       } catch (error) {
         console.log(error);
@@ -34,3 +34,4 @@ export const protect = async (req:Request, res:Response, next:NextFunction) => {
     next(error)
    } 
 };
+
