@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+<<<<<<< HEAD
   "type": "module",
   "scripts": {
     "test": "vitest run",
     "start": "nodemon server.ts",
+=======
+  
+  "scripts": {
+    "test": "vitest run",
+>>>>>>> 1f4ba43e72da4b44492e55b4bfbe5736e55c810e
     "dev": "nodemon -r dotenv/config index.ts"
   },
   "repository": {
