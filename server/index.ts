@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import { DBconnect } from './config/db.js';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors()).use(json());
 
 DBconnect();
+
 
 // app.use(passport.initialize());
 // app.use(passport.session());
