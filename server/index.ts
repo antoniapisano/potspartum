@@ -1,5 +1,5 @@
 import express, { json } from 'express';
-import { DBconnect } from './config/db.js';
+import { DBconnect } from './config/db';
 import cors from 'cors';
 import {badRequestHandler, unauthorizedHandler, forbiddenHandler, notFoundHandler, genericErrorHandler} from './middleware/errorHandling'
 import volunteerRoutes from "./routes/volunteerRoutes"
@@ -38,6 +38,7 @@ app.use(cors())
 
 //ENDPOINTS
 app.use("/", volunteerRoutes)
+app.use('/api/users', require('./routes/userRoutes'))
 
 
 //ERROR HANDLERS
