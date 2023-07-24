@@ -1,20 +1,22 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { volunteerSchema } from '../page/volunteerSchema';
+import { VolunteerSchema } from './VolunteerSchema';
+import type { UserVolunteerSchema } from './VolunteerSchema';
 
 
 
-export default function volunteerForm() {
+export default function VolunteerForm() {
 
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid }
-    } = useForm<typeof volunteerSchema>({
-        resolver: zodResolver(volunteerSchema)
+        formState: { isValid }
+    } = useForm<UserVolunteerSchema>({
+        resolver: zodResolver(VolunteerSchema)
     })
 
-    const onSubmit: SubmitHandler<typeof volunteerSchema> = (data) => {
+    const onSubmit: SubmitHandler<UserVolunteerSchema> = (data) => {
+        console.log(data.name)
         console.log(data)
     }
 
@@ -28,46 +30,46 @@ export default function volunteerForm() {
 
                 <label htmlFor="name"
                 >Name:</label>
-                <input id="name" type="text" {...register('_input.name')}/>
+                <input id="name" type="text" {...register('name')}/>
 
                 <label htmlFor="phone"
                 >Phone:</label>
-                <input id="phone" type="text" {...register("_input.phone")}/>
+                <input id="phone" type="text" {...register("phone")}/>
 
                 <label htmlFor="address"
                 >Address:</label>
-                <input id="address" type="text" {...register("_input.address")}/>
+                <input id="address" type="text" {...register("address")}/>
 
                 <label htmlFor="email"
                 >Email:</label>
-                <input id="street" type="email" {...register("_input.email")}/>
+                <input id="email" type="email" {...register("email")}/>
 
                 <label htmlFor="community" 
                 >Community:
                 </label>
-                <input id="community" type="text" {...register("_input.community")}/>
+                <input id="community" type="text" {...register("community")}/>
 
 
                 <label htmlFor="image" 
                 >Image:
                 </label>
-                <input id="image" type="text" {...register("_input.image")}/>
+                <input id="image" type="text" {...register("image")}/>
 
                 <label htmlFor="description"
                 >Description:
                 </label>
-                <input id="description" type="text" {...register("_input.description")}/>
+                <input id="description" type="text" {...register("description")}/>
 
 
                 <label htmlFor="restrictions"
                 >Restrictions:
                 </label>
-                <input type="restrictions" {...register("_input.restrictions")}/>
+                <input id="restrictions" {...register("restrictions")}/>
 
                 <label htmlFor="authorized"
                 >Authorized:
                 </label>
-                <input id="authorized" type="boolean" {...register("_input.authorized")}/>
+                <input id="authorized" type="boolean" {...register("authorized")}/>
 
                 <button type="submit">
                     Submit
