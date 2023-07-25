@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import { Jwt } from "jsonwebtoken"
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler'
+import { IUserDocument } from '../types/IUser'
 import User from '../models/userModel'
 
 
@@ -11,7 +12,6 @@ import User from '../models/userModel'
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
  
   const { name, email, password } = req.body
-  console.log(req.body);
   if (!name || !email || !password) {
     res.status(400)
     throw new Error('Please add all fields')
@@ -57,8 +57,20 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 // @route POST /api/users/login
 // @access Public
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
-  res.json({message: "Login user"})
-})
+  const { email, password } = req.body
+  const user: IUserDocument | null = await User.findOne({ email })
+  if (user && (await bcrypt.compare(password, user.password))) {
+    res.json({
+      _id: user.id,
+      name: user.name,
+      email: user.email
+    })
+  } else {
+    res.status(400)
+    throw new Error('invalid credentials')
+  }
+}) 
+
 
 
 // @desc Get user data
