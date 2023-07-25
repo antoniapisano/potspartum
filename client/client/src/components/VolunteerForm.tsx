@@ -42,7 +42,7 @@ export default function VolunteerForm() {
 
                 <label htmlFor="email"
                 >Email:</label>
-                <input id="street" type="email" {...register("email")}/>
+                <input id="email" type="email" {...register("email")}/>
 
                 <label htmlFor="community" 
                 >Community:
@@ -64,12 +64,12 @@ export default function VolunteerForm() {
                 <label htmlFor="restrictions"
                 >Restrictions:
                 </label>
-                <input type="restrictions" {...register("restrictions")}/>
+                <input id="restrictions" {...register("restrictions")}/>
 
                 <label htmlFor="authorized"
                 >Authorized:
                 </label>
-                <input id="authorized" type="boolean" {...register("authorized")}/>
+                <input id="authorized" type="text" {...register("authorized")}/>
 
                 <button type="submit">
                     Submit

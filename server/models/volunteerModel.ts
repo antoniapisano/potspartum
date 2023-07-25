@@ -15,6 +15,7 @@ const VolunteerSchema = new Schema({
     description: { type: String},
     restrictions: { type: []}, //Restriction[]
     authorized: { type: Boolean},
+    token:{type:String},
 },{timestamps:true})
 
 export default model <UserDocument>("Volunteer", VolunteerSchema)

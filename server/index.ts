@@ -1,20 +1,28 @@
 import express, { json } from 'express';
-/* import { connectDB } from './resume/config/db'; */
+import { DBconnect } from './config/db.js';
 import cors from 'cors';
 import {badRequestHandler, unauthorizedHandler, forbiddenHandler, notFoundHandler, genericErrorHandler} from './middleware/errorHandling'
+import volunteerRoutes from "./routes/volunteerRoutes"
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
+// import passport from 'passport';
 
-// Routes
 
 //PASSPORT
-import passport from 'passport';
+/* import passport from 'passport'; */
 /* import session from 'express-session'; */
 /* import './resume/config/passportStrategies'; */
+const PORT = process.env.PORT || 4000;
 
-const PORT = process.env.PORT || 3000;
-
-/* connectDB(); */
 
 const app = express();
+
+app.use(cors()).use(json());
+
+DBconnect();
+
+
 
 app.use(cors())
     .use(json())
@@ -25,8 +33,11 @@ app.use(cors())
             saveUninitialized: false,
         })
     ) */
-    .use(passport.initialize())
-    .use(passport.session());
+  /*   .use(passport.initialize())
+    .use(passport.session()); */
+
+//ENDPOINTS
+app.use("/", volunteerRoutes)
 
 
 //ERROR HANDLERS
@@ -36,6 +47,10 @@ app.use(cors())
     app.use(forbiddenHandler)
     app.use(notFoundHandler)
     app.use(genericErrorHandler)
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 
 app.listen(PORT, () => {
     // eslint-disable-next-line no-undef, no-console
