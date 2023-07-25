@@ -6,6 +6,7 @@ import volunteerRoutes from "./routes/volunteerRoutes"
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes'
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 dotenv.config({ path: './.env' });
 // import passport from 'passport';
 
@@ -18,6 +19,12 @@ const PORT = process.env.PORT || 4000;
 
 
 const app = express();
+
+// middleware to handle JSON or URL encoded form data 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use(cors()).use(json());
 
@@ -38,7 +45,7 @@ app.use(cors())
     .use(passport.session()); */
 
 //ENDPOINTS
-app.use("/", volunteerRoutes)
+app.use('/', volunteerRoutes)
 app.use('/api/users', userRoutes)
 
 

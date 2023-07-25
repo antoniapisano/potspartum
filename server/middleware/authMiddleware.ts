@@ -3,7 +3,6 @@ import {verifyAccessToken}  from "../tools/tools";
 
 
 
-
 export const protect:RequestHandler = async (req:Request, res:Response, next:NextFunction) => {
    try {
     let token;
