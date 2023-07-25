@@ -4,6 +4,7 @@ import cors from 'cors';
 import {badRequestHandler, unauthorizedHandler, forbiddenHandler, notFoundHandler, genericErrorHandler} from './middleware/errorHandling'
 import volunteerRoutes from "./routes/volunteerRoutes"
 import mongoose from 'mongoose';
+import userRoutes from './routes/userRoutes'
 import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
 // import passport from 'passport';
@@ -38,7 +39,7 @@ app.use(cors())
 
 //ENDPOINTS
 app.use("/", volunteerRoutes)
-app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/users', userRoutes)
 
 
 //ERROR HANDLERS
