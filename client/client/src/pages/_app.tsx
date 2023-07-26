@@ -3,7 +3,10 @@ import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { store } from '../store'
 import { Provider } from 'react-redux'
- 
+import momForm from "./momForm"
+import momLogin from "./momLogin"
+
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
