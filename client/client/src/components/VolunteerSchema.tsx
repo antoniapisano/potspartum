@@ -1,30 +1,23 @@
 import { z } from 'zod';
 
 export const VolunteerSchema = z.object({
-    name: z.string().min(1, {
-        message: "please enter at least one letter for your name"
+    name: z.string().min(1, {message: "please enter at least one letter for your name"}), 
+    phone: z.number({
+        required_error: "please enter your number",
+        invalid_type_error: "please enter phone in number format"
     }), 
-    phone: z.string().min(8, { message: "Phone numbers are a minimum of 10 digits" }),
     address: z.string({
         required_error: "please enter your address",
     }), 
-    email: z.string().email({
-        message: "invalid email address"
-    }),
-    community: z.string({
-        required_error: "please enter your community",
-    }), 
-    image: z.string({
-        required_error: "please add image or type none",
-    }), 
+    email: z.string().email({message: "invalid email address"}),
+    community: z.string().uuid({message: "invalid ID"}),
+    image: z.string().ip(),
     description: z.string({
         required_error: "please enter a description of your requirements",
     }), 
-    restrictions: z.string({
-        required_error: "please add restriction or type none",
-    }), 
-    authorized: z.string({
-        required_error: "please type none",
+    restrictions: z.enum(["not kosher", "kosher", "not halal", "halal"]),
+    authorized: z.boolean({
+        required_error: "sorry, not authorised",
     }), 
 });
 
