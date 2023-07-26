@@ -11,6 +11,7 @@ dotenv.config();
 // @desc Register a new user
 // @route POST /api/users
 // @access Public
+
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
  
   const { name, email, password } = req.body
@@ -19,8 +20,6 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     throw new Error('Please add all fields')
   }
 
-  // check if user exists
-
   const userExists = await User.findOne({ email });
 
   if(userExists) {
@@ -28,12 +27,10 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     throw new Error('User with this email already exists');
   }
 
-  // hash password
-
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
-  //create user
+ 
 
   const user = await User.create({
     name, 
@@ -45,7 +42,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     res.status(201).json({
       _id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      token: generateToken(user._id)
            
     })
   } else {
@@ -58,6 +56,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 // @desc Authenticate a user
 // @route POST /api/users/login
 // @access Public
+
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body
   const user: IUserDocument | null = await User.findOne({ email })
@@ -65,7 +64,8 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
     res.json({
       _id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      token: generateToken(user._id)
     })
   } else {
     res.status(400)
@@ -73,13 +73,37 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
   }
 }) 
 
-
-
 // @desc Get user data
 // @route GET /api/users/me
-// @access Public
+// @access Private
+
 const getMe = asyncHandler(async (req: Request, res: Response) => {
-  res.json({message: "User data display"})
+
+  const userId = (req.user as any)._id;  
+  if (!userId) {
+    res.status(401)
+    throw new Error('User not authenticated')
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    res.status(404)
+    throw new Error('User not found')         
+  }
+
+  const { _id, name, email } = user;
+  
+  if (user) {
+    res.status(200).json({
+      id: _id,
+      name,
+      email
+    })
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 })
 
 // Generate JWT
@@ -91,4 +115,4 @@ const generateToken = (id: string | number): string => {
   })
 }
 
-export { registerUser, loginUser,getMe };
+export { registerUser, loginUser, getMe };
