@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express"
-import { Jwt } from "jsonwebtoken"
+import jwt, {Secret} from "jsonwebtoken"
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler'
 import { IUserDocument } from '../types/IUser'
 import User from '../models/userModel'
+import dotenv from "dotenv"
 
+dotenv.config();
 
 // @desc Register a new user
 // @route POST /api/users
@@ -79,5 +81,14 @@ const loginUser = asyncHandler(async (req: Request, res: Response) => {
 const getMe = asyncHandler(async (req: Request, res: Response) => {
   res.json({message: "User data display"})
 })
+
+// Generate JWT
+
+const generateToken = (id: string | number): string => {
+  return jwt.sign({ id }, process.env.JWT_SECRET as Secret,
+    {
+    expiresIn: '30d',
+  })
+}
 
 export { registerUser, loginUser,getMe };
