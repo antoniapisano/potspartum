@@ -69,7 +69,7 @@ export default function VolunteerForm() {
                 <label htmlFor="authorized"
                 >Authorized:
                 </label>
-                <input id="authorized" type="boolean" {...register("authorized")}/>
+                <input id="authorized" type="text" {...register("authorized")}/>
 
                 <button type="submit">
                     Submit
