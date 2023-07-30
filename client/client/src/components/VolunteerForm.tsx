@@ -28,7 +28,7 @@ export default function VolunteerForm() {
                 onSubmit={handleSubmit(onSubmit)}
             >
 
-                <label htmlFor="name"
+<label htmlFor="name"
                 >Name:</label>
                 <input id="name" type="text" {...register('name')}/>
 
@@ -79,3 +79,7 @@ export default function VolunteerForm() {
         </>
     )
 }
+
+export interface VolunteerForm {
+    isAcceptable(s: string): boolean;
+  }
