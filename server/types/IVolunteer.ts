@@ -5,6 +5,7 @@ export interface IVolunteer {
     phone:number;
     address:string;
     email: string;
+    password: string;
     community: string; //Community.id
     image?: string; //linked from Facebook
     description: string;
