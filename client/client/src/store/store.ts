@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-// ...
+import volunteersReducer from "../components/VolunteerSlice"
 
 export const store = configureStore({
   reducer: {
-    volunteer: volunteerReducer,
-    mom: momReducer,
+    volunteer: volunteersReducer,
+    //mom: momsReducer,
   },
 })
 
