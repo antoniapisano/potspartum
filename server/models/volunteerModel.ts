@@ -10,6 +10,7 @@ const VolunteerSchema = new Schema({
     phone:{ type: String, require: true},
     address:{ type: String, require: true},
     email: { type: String, require: true},
+    password:{ type: String, require: true},
     community: { type: String, require: true}, //Community.id
     image: { type: String}, //linked from Facebook
     description: { type: String},

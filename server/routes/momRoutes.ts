@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import momController from '../controllers/momControllers';
+import momController from '../controllers/momController';
 
 const router = Router();
 

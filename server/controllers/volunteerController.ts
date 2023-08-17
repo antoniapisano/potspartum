@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import Volunteer from '../models/volunteerModel';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 
 export const volunteerRegister = async (
     req: Request,
@@ -9,16 +9,19 @@ export const volunteerRegister = async (
     next: NextFunction
 ) => {
     try {
-        const { email } = req.body;
+        const { email, password } = req.body;
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
+      
         const userExists = await Volunteer.findOne({ email });
 
         if (userExists) {
-            res.sendStatus(400).send({ error: 'Email already in use' });
+            res.sendStatus(400);
+            throw new Error ('Email already in use' );
         }
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
 
         const newUser = {
             ...req.body,
@@ -37,6 +40,6 @@ export const volunteerRegister = async (
 };
 
 const generateToken = (id: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return jwt.sign({ id }, process.env.JWT_SECRET!, { expiresIn: '7d' });
+    
+    return jwt.sign({ id }, process.env.JWT_SECRET as Secret, { expiresIn: '7d' });
 };

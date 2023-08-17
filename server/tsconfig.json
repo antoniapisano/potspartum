@@ -121,8 +121,8 @@
     },
     "exclude": ["node_modules", "tests"],
     "include": ["**/*.ts", "**/*.d.ts"],
-    "ts-node": {
+   /*  "ts-node": {
         "esm": true,
         "experimentalSpecifierResolution": "node"
-    }
+    } */
 }
