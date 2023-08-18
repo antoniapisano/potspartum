@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express"
+import {Request, Response } from "express"
 import jwt, {Secret} from "jsonwebtoken"
 import bcrypt from 'bcryptjs'
 import asyncHandler from 'express-async-handler'
